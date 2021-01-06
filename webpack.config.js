@@ -10,6 +10,12 @@ module.exports = env => {
       filename: '[name].js',
       path: path.resolve(__dirname, 'dist'),
       // pathinfo: false 路径信息，默认true大项目会影响性能
-    }
+    },
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, 'src/components/'),
+        '@assets': path.resolve(__dirname, 'src/assets/'),
+      },
+    },
   };
 };
