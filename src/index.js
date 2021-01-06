@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import './style.css';
-import printMe from './print';
+import print from './print';
 
 function component() {
   var element = document.createElement('div');
@@ -10,7 +10,7 @@ function component() {
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
   element.classList.add('hello');
 
-  btn.onclick = printMe;
+  btn.onclick = print.bind(null, 'Hello zkl');
   element.appendChild(btn);
 
   return element;
