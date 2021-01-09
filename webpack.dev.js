@@ -32,12 +32,12 @@ module.exports = merge(common, {
       test: /\.scss$/,
       include: path.resolve(__dirname, 'src'),
       use: [
-        'vue-style-loader',
+        'style-loader',
         'css-loader',
         'sass-loader'
       ]
     }, {
-      test: /\.(css)$/i,
+      test: /\.css$/,
       include: path.resolve(__dirname, 'src'),
       use: [
         'style-loader',

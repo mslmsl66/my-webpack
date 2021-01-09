@@ -16,7 +16,7 @@ module.exports = merge(common, {
   },
   module: {
     rules: [{
-      test: /\.(css|scss)$/i,
+      test: /\.css$/i,
       include: path.resolve(__dirname, 'src'), // 只转义src目录
       use: [
         MiniCssExtractPlugin.loader,
