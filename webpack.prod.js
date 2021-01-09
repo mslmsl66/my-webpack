@@ -79,6 +79,7 @@ module.exports = merge(common, {
     // 此配置将runtime单独打一个js
     // 如果不打的话，即使业务代码没变，重新打包hash也会变，因为runtime执行的原因
     runtimeChunk: 'single',
+  
     // splitChunk代码去重，比如index.js 和 print.js同时引入了lodash
     // 配置两个入口打包，lodash会被同时打入这两个文件
     // 注意：splitchunk在每次打包时，都会执行，如果库没更改只是hash不变而已
