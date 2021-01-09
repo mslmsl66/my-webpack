@@ -13,6 +13,20 @@ function component() {
   btn.onclick = print.bind(null, 'Hello zkl');
   element.appendChild(btn);
 
+  var f = () => {
+    return new Promise((resolve) => {
+      resolve();
+    }).then(() => {
+      console.log(123);
+    });
+  };
+  f();
+
+  const test = () => {
+    'es8'.padStart(2);
+  };
+  test();
+
   return element;
 }
 

@@ -2,7 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { merge } = require('webpack-merge');
@@ -16,7 +16,7 @@ module.exports = merge(common, {
   },
   module: {
     rules: [{
-      test: /\.css$/i,
+      test: /\.css$/,
       include: path.resolve(__dirname, 'src'), // 只转义src目录
       use: [
         MiniCssExtractPlugin.loader,
@@ -27,6 +27,15 @@ module.exports = merge(common, {
         'css-loader'
       ]
     }, {
+      test: /\.js$/,
+      include: path.resolve(__dirname, 'src'), // 只转义src目录
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      }
+    }, {
       // webpack5直接使用内置的asset
       // webpack4需要loader，比如file-loader, url-loader
       test: /\.(png|gif|jpg|jpeg|svg)$/i,
@@ -35,11 +44,6 @@ module.exports = merge(common, {
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
       type: 'asset/resource',
     }]
-    // {
-    //   test: /\.js$/,
-    //   include: path.resolve(__dirname, 'src'), // 只转义src目录
-    //   use: ['babel-loader']
-    // }
   },
   plugins: [
     // 如果更改了entry的文件名或新增了入口，.html还是会用之前的名字
@@ -63,10 +67,12 @@ module.exports = merge(common, {
     })
   ],
   optimization: {
-    minimizer: [new UglifyJsPlugin({
-      test: /\.js(\?.*)?$/i,
-      parallel: true, // 允许多进程
-    })],
+    // mode:production会自动做uglify，不需要手动配置
+    // minimizer: [new UglifyJsPlugin({
+    //   test: /\.js(\?.*)?$/i,
+    //   parallel: true, // 允许多进程
+    // })],
+
     // webpack打包时有自己的manifest和runtime
     // manifest：编译执行时，保留所有模块的详细要点，比如：src目录里的排布在打包后都没了，webpack记录来管理
     // runtime：浏览器运行时，webpack用来连接模块的

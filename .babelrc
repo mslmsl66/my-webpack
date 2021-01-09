@@ -1,0 +1,26 @@
+{
+  // 这配置使用的是core-js，修改全局对象的方式去polyfill
+  // 打包后的main.js可以看到Promise
+  // 如果是作为库，还是使用runtime好
+  // "presets": [
+  //     [ "@babel/preset-env", {
+  //         "useBuiltIns": "usage",
+  //         "corejs": 3
+  //     }]
+  // ],
+
+  // 这配置是runtime方案，moudle形式去polyfill
+  // 打包后main.js没有Promise，被require core/.../promise形式转成_promise
+  // 随后uglify处理所以看不到了
+  // babel7.4之后不存在实例化使用问题（ 如："123".charAt() ），runtime直接用就可以
+  "presets": [
+    [
+      "@babel/preset-env"
+    ]
+  ],
+  "plugins": [
+    ["@babel/plugin-transform-runtime", {
+        "corejs": 3
+    }]
+  ]
+}
