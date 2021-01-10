@@ -2,14 +2,14 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { merge } = require('webpack-merge');
 const common = require('./webpack.config.js');
 
 module.exports = merge(common, {
-  mode: 'production',
+  mode: 'production', // 默认开启scope hosting，uglify等一些生产适用的功能
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
@@ -67,11 +67,10 @@ module.exports = merge(common, {
     })
   ],
   optimization: {
-    // mode:production会自动做uglify，不需要手动配置
-    // minimizer: [new UglifyJsPlugin({
-    //   test: /\.js(\?.*)?$/i,
-    //   parallel: true, // 允许多进程
-    // })],
+    minimizer: [new UglifyJsPlugin({
+      test: /\.js(\?.*)?$/i,
+      parallel: true, // 允许多进程
+    })],
 
     // webpack打包时有自己的manifest和runtime
     // manifest：编译执行时，保留所有模块的详细要点，比如：src目录里的排布在打包后都没了，webpack记录来管理

@@ -24,6 +24,7 @@ module.exports = merge(common, {
   },
   module: {
     rules: [{
+      // 强制eslint先执行
       enforce: 'pre',
       test: /\.(js|vue)$/,
       loader: 'eslint-loader',
