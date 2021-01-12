@@ -53,11 +53,13 @@ module.exports = merge(common, {
     // 如果更改了entry的文件名或新增了入口，.html还是会用之前的名字
     // 手动更新是费事费力的，htmlWebpackPlugin就排上用场了
     new HtmlWebpackPlugin({
-      title: 'Development'
+      title: 'Test',
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'src/index.html'),
     }),
+    new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     // vue-loader还需要plugin这里加，比如：为了让babel也能获取.vue里的script
-    new VueLoaderPlugin(),
     new StyleLintPlugin({
       files: ['**/*.{vue,html,css,scss,sass}'],
     })

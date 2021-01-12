@@ -1,33 +1,38 @@
-import _ from 'lodash';
-import './style.css';
-import print from './print';
+import Vue from 'vue';
+import App from './App.vue';
 
-function component() {
-  var element = document.createElement('div');
-  const btn = document.createElement('button');
+new Vue({
+  el: '#app',
+  render: h => h(App)
+});
 
-  // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
 
-  btn.onclick = print.bind(null, 'Hello zkl');
-  element.appendChild(btn);
+// function component() {
+//   var element = document.createElement('div');
+//   const btn = document.createElement('button');
 
-  var f = () => {
-    return new Promise((resolve) => {
-      resolve();
-    }).then(() => {
-      console.log(123);
-    });
-  };
-  f();
+//   // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
+//   element.innerHTML = 'HHH';
+//   element.classList.add('hello');
 
-  const test = () => {
-    'es8'.padStart(2);
-  };
-  test();
+//   btn.onclick = print.bind(null, 'Hello zkl');
+//   element.appendChild(btn);
 
-  return element;
-}
+//   var f = () => {
+//     return new Promise((resolve) => {
+//       resolve();
+//     }).then(() => {
+//       console.log(123);
+//     });
+//   };
+//   f();
 
-document.body.appendChild(component());
+//   const test = () => {
+//     'es8'.padStart(2);
+//   };
+//   test();
+
+//   return element;
+// }
+
+// document.body.appendChild(component());

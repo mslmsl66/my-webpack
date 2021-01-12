@@ -1,6 +1,7 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
@@ -43,14 +44,20 @@ module.exports = merge(common, {
     }, {
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
       type: 'asset/resource',
+    }, {
+      test: /\.vue$/,
+      loader: 'vue-loader'
     }]
   },
   plugins: [
     // 如果更改了entry的文件名或新增了入口，.html还是会用之前的名字
     // 手动更新是费事费力的，htmlWebpackPlugin就排上用场了
     new HtmlWebpackPlugin({
-      title: 'Production'
+      title: 'Test',
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'src/index.html'),
     }),
+    new VueLoaderPlugin(),
     // 删除之前编译的dist文件
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
