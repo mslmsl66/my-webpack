@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { memoize, sqrt } from '../js/util';
+import { memoize, sqrt } from '../answers/util';
 import answer from './answer.vue';
 export default {
   components: {
