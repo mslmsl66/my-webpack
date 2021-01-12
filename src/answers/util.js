@@ -24,6 +24,74 @@ const memoize = fn => {
   };
 };
 
+// 自定义事件处理器，单例，应该得是全局唯一的
+class EventEmitter {
+  // static #instance;
+  constructor () {
+    // 缓存事件
+    this.eventCache = new Map();
+  }
+  // static getInstance () {
+  //   if (!this.#instance) {
+  //     this.#instance = new EventEmitter();
+  //   }
+  //   return this.#instance;
+  // }
+
+  /**
+   * 绑定事件
+   * @param {String} eventName 事件名
+   * @param {Function} callback 
+   */
+  on (eventName, callback) {
+    if (typeof callback !== 'function') {
+      throw 'not function';
+    }
+    // on只保留event和callback不做初始化
+    if (this.eventCache.has(eventName)) {
+      this.eventCache.get(eventName).push(callback);
+    } else {
+      this.eventCache.set(eventName, [callback]);
+    }
+  }
+
+  /**
+   * 解绑事件
+   * @param {String} eventName 
+   */
+  off (eventName) {
+    this.eventCache.get(eventName)?.splice(0);
+  }
+
+  /**
+   * 触发事件
+   * @param {String} eventName 
+   * @param {Object} detail 参数
+   */
+  trigger (eventName, detail) {
+    // 触发时做初始化
+    if (this.eventCache.has(eventName)) {
+      let event = new CustomEvent(eventName, { detail: detail });
+      let callbacks = [];
+      if (eventName === '*') {
+        // 所有事件callback都触发
+        for (let item of this.eventCache) {
+          callbacks = callbacks.concat(item[1]);
+        }
+      } else {
+        callbacks = this.eventCache.get(eventName);
+      }
+      callbacks.forEach(cb => {
+        window.addEventListener(eventName, cb);
+      });
+      window.dispatchEvent(event);
+      callbacks.forEach(cb => {
+        window.removeEventListener(eventName, cb);
+      });
+    }
+  }
+}
+
 /**
  * 求根
  * @param {Number} num 需要计算的值
@@ -35,5 +103,6 @@ const sqrt = num => {
 
 export {
   memoize,
-  sqrt
+  sqrt,
+  EventEmitter
 };
