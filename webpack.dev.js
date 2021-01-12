@@ -31,7 +31,6 @@ module.exports = merge(common, {
       exclude: /node_modules/
     }, {
       test: /\.scss$/,
-      include: path.resolve(__dirname, 'src'),
       use: [
         'style-loader',
         'css-loader',
@@ -39,7 +38,6 @@ module.exports = merge(common, {
       ]
     }, {
       test: /\.css$/,
-      include: path.resolve(__dirname, 'src'),
       use: [
         'style-loader',
         'css-loader'
@@ -47,6 +45,14 @@ module.exports = merge(common, {
     }, {
       test: /\.vue$/,
       loader: 'vue-loader'
+    }, {
+      // webpack5直接使用内置的asset
+      // webpack4需要loader，比如file-loader, url-loader
+      test: /\.(png|gif|jpg|jpeg|svg)$/i,
+      type: 'asset/resource'
+    }, {
+      test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      type: 'asset/resource',
     }]
   },
   plugins: [
