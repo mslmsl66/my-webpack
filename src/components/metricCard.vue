@@ -3,7 +3,7 @@
     class="metric-card"
   >
     <img
-      src="../asset/metricCard.jpg"
+      src="../asset/metric-card.jpg"
       class="metric-card-image"
     />
     <answer
@@ -12,7 +12,7 @@
       <template
         v-slot:code
       >
-        <img src="../asset/memoize-answer.jpg"/>
+        <img src="../asset/metric-card-answer.jpg"/>
       </template>
       <template
         v-slot:runtime
@@ -39,12 +39,6 @@
             :column="metric.column"
           >
           </metric-card-template>
-          <el-button
-            type="primary"
-            @click="handleConfirm"
-          >
-            执行查看
-          </el-button>
         </div>
       </template>
     </answer>
@@ -108,11 +102,6 @@ export default {
         })
       }]
     };
-  },
-  methods: {
-    handleConfirm () {
-      console.log(1);
-    }
   }
 };
 </script>
@@ -142,5 +131,9 @@ export default {
 
   .metric-block {
     margin: 8px;
+  }
+
+  .runtime {
+    align-self: flex-start;
   }
 </style>

@@ -36,6 +36,6 @@ export default {
   }
 
   .runtime {
-    flex: 1;
+    flex: 2;
   }
 </style>
