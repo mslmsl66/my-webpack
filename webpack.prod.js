@@ -12,13 +12,13 @@ const common = require('./webpack.config.js');
 module.exports = merge(common, {
   mode: 'production', // 默认开启scope hosting，uglify等一些生产适用的功能
   output: {
+    publicPath: './',
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [{
       test: /\.css$/,
-      include: path.resolve(__dirname, 'src'), // 只转义src目录
       use: [
         MiniCssExtractPlugin.loader,
         // 'style-loader',
